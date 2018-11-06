@@ -2,15 +2,15 @@ from golang:alpine
 MAINTAINER Bruce Zhou <zhouy.vreal@gmail.com>
 
 RUN apk update && apk upgrade && \
-    apk add tmux zsh git
+    apk add --no-cache g++ gcc libgcc gnupg alpine-sdk tmux zsh git curl bash
 
 RUN adduser -h /home/dev -s /bin/zsh -G root -D dev
 
 WORKDIR /home/dev
 RUN chown -R dev:root /home/dev
 USER dev
-COPY tmux.conf /home/dev/.tmux.conf
-COPY zshrc /home/dev/.zshrc
+COPY --chown=dev:root tmux.conf /home/dev/.tmux.conf
+COPY --chown=dev:root zshrc /home/dev/.zshrc
 
 RUN mkdir /home/dev/go
 ENV GOROOT /usr/local/go
