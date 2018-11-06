@@ -11,11 +11,11 @@ build-tmux:
 
 build-vim:
 	docker rmi vreal/env-go-dev  || exit 0
-	docker build -t vreal/env-go-dev -f neovim/Dockerfile neovim/
+	docker build --console true -t vreal/env-go-dev -f vim/Dockerfile vim/
 	#docker push vreal/env-go-dev :latest
 	#docker tag vreal/env-go-dev :latest $(TMUX_VER)
 	#docker push $(TMUX_VER)
 	#docker rmi $(TMUX_VER)
 
 start:
-	docker run --name ide -it --rm vreal/env-go-dev
+	docker run --name ide --rm -it -d -p 22:22 vreal/env-go-dev 
