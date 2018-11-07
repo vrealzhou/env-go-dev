@@ -23,6 +23,8 @@ RUN git clone https://github.com/diverdane/vim-go-ide.git /home/dev/.vim_runtime
 RUN rm -rf /home/dev/.vim_runtime/.git
 RUN /home/dev/.vim_runtime/install.sh
 RUN echo "alias vi=vim" >> /home/dev/.zshrc
+# Install Go Binaries in vim
+ENV TERM xterm-256color
+RUN vim -c "execute 'silent GoUpdateBinaries' | execute 'quit'"
 
-
-CMD vim -E -c GoInstallBinaries -c GoUpdateBinaries -c q ; sh
+ENTRYPOINT ["tmux"]
