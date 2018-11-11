@@ -2,9 +2,10 @@ from golang:alpine
 MAINTAINER Bruce Zhou <zhouy.vreal@gmail.com>
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache g++ gcc libgcc gnupg alpine-sdk tmux zsh git curl bash
+    apk add --no-cache g++ gcc libgcc gnupg alpine-sdk tmux zsh git curl bash openrc docker
 
 RUN adduser -h /home/dev -s /bin/zsh -G root -D dev
+RUN rc-update add docker boot
 
 WORKDIR /home/dev
 RUN chown -R dev:root /home/dev

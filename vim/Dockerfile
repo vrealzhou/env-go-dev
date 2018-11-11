@@ -3,7 +3,7 @@ MAINTAINER Bruce Zhou <zhouy.vreal@gmail.com>
 
 USER root
 
-RUN apk add python3 vim openrc openssh
+RUN apk add python3 vim openssh
 RUN sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config
 RUN echo "root:root" | chpasswd
 RUN echo "dev:dev" | chpasswd
