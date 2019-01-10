@@ -22,6 +22,10 @@ USER dev
 RUN git clone https://github.com/diverdane/vim-go-ide.git /home/dev/.vim_runtime
 RUN rm -rf /home/dev/.vim_runtime/.git
 RUN /home/dev/.vim_runtime/install.sh
+RUN echo "set nu" >> /home/dev/.vim_runtime/my_configs.vim
+RUN echo "map tt :NERDTreeToggle<CR>" >> /home/dev/.vim_runtime/my_configs.vim
+RUN echo "imap <C-I><C-I> <Esc>" >> /home/dev/.vim_runtime/my_configs.vim
+
 RUN echo "alias vi=vim" >> /home/dev/.zshrc
 # Install Go Binaries in vim
 ENV TERM xterm-256color
