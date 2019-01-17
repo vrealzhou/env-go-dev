@@ -27,4 +27,7 @@ RUN echo "alias vi=vim" >> /home/dev/.zshrc
 ENV TERM xterm-256color
 RUN vim -c "execute 'silent GoUpdateBinaries' | execute 'quit'"
 
+COPY ext-rc.vim /home/dev/ext-rc.vim
+RUN cat ext-rc.vim >> /home/dev/.vimrc
+
 ENTRYPOINT ["tmux"]
