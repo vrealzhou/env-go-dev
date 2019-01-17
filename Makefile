@@ -18,4 +18,4 @@ build-vim:
 	docker rmi $(TMUX_VER)
 
 start:
-	docker run --name ide --rm -it -v $(GOPATH):/home/dev/go -v ~/projects:/home/dev/projects vreal/env-go-dev
+	docker run --name ide --rm -it -v $(GOPATH):/home/dev/go -v ~/projects:/home/dev/projects vreal/env-go-dev:latest
