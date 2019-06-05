@@ -2,7 +2,14 @@ set nu
 let mapleader = ","
 let g:completor_gocode_binary = '$GOPATH/bin/gocode'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set clipboard=unnamed
+set bs=2
+set autowrite
+
+let g:go_list_type = "quickfix"
+
 filetype plugin on
+
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
@@ -24,6 +31,23 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+function! XTermPasteBegin()
+   set pastetoggle=<Esc>[201~
+   set paste
+return ""
+endfunction
+
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
 call plug#begin('~/.vim/plugged')
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'maralla/completor.vim'
@@ -32,14 +56,15 @@ Plug 'majutsushi/tagbar'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'airblade/vim-gitgutter', { 'do': ':source %' }
+Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
+Plug 'SirVer/ultisnips'
 
 call plug#end()
+
 map <C-p> :FZF<CR>
 map <C-i> :TagbarToggle<CR>
 map tt :NERDTreeToggle<CR>
-

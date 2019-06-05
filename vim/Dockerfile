@@ -21,13 +21,15 @@ RUN rc-update add sshd
 USER dev
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 COPY vimrc /home/dev/.vimrc
-
 RUN echo "alias vi=vim" >> /home/dev/.zshrc
 # Install Go Binaries in vim
-ENV TERM xterm-256color
-RUN vim -c "execute 'silent PlugInstall' | execute 'quit'"
+RUN vim -c 'set nomore' +PlugInstall +qall
 
 COPY ext-rc.vim /home/dev/ext-rc.vim
-RUN cat ext-rc.vim >> /home/dev/.vimrc
+USER root
+RUN chown dev:root /home/dev/.vimrc
+RUN ls -la /home/dev/*
+USER dev
+RUN cat /home/dev/ext-rc.vim >> /home/dev/.vimrc
 
 ENTRYPOINT ["tmux"]
